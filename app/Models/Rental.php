@@ -22,6 +22,9 @@ class Rental extends Model
         'notes',
         'approved_at',
         'returned_at',
+        'payment_status',
+        'payment_proof_path',
+        'paid_at',
     ];
 
     protected function casts(): array
@@ -33,6 +36,7 @@ class Rental extends Model
             'deposit' => 'decimal:2',
             'approved_at' => 'datetime',
             'returned_at' => 'datetime',
+            'paid_at' => 'datetime',
         ];
     }
 

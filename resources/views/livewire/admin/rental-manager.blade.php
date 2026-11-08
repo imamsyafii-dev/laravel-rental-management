@@ -56,6 +56,49 @@
                 </ul>
             </div>
 
+            <div class="mt-4 border-t pt-4">
+                <p class="text-sm text-gray-600">
+                    Status pembayaran:
+                    <span class="font-medium">
+                        {{ ucfirst($rental->payment_status) }}
+                    </span>
+                </p>
+
+                @if ($rental->payment_proof_path)
+                    <a
+                        href="{{ asset('storage/' . $rental->payment_proof_path) }}"
+                        target="_blank"
+                        class="mt-2 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                        Lihat Bukti Pembayaran
+                    </a>
+                @endif
+
+                @if ($rental->payment_status === 'submitted')
+                    <div class="mt-3">
+                        <button
+                            type="button"
+                            wire:click="confirmPayment({{ $rental->id }})"
+                            wire:confirm="Konfirmasi pembayaran ini?"
+                            style="display: inline-block !important; background-color: #16a34a !important; color: #ffffff !important;"
+                            class="rounded-md px-4 py-2 text-sm font-semibold"
+                        >
+                            Konfirmasi Pembayaran
+                        </button>
+
+                        <button
+                            type="button"
+                            wire:click="rejectPayment({{ $rental->id }})"
+                            wire:confirm="Tolak bukti pembayaran ini?"
+                            style="display: inline-block !important; background-color: #dc2626 !important; color: #ffffff !important;"
+                            class="ml-2 rounded-md px-4 py-2 text-sm font-semibold"
+                        >
+                            Tolak Pembayaran
+                        </button>
+                    </div>
+                @endif
+            </div>
+
             <div class="mt-4 flex items-center justify-between border-t pt-4">
                 <span class="font-semibold text-gray-900">
                     Total:

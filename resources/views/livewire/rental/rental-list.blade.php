@@ -39,6 +39,13 @@
                 <span class="{{ $statusClasses[$rental->status] ?? 'bg-gray-100 text-gray-800' }} rounded-full px-3 py-1 text-sm font-medium">
                     {{ ucfirst($rental->status) }}
                 </span>
+
+                <p class="mt-2 text-sm text-gray-600">
+                    Status pembayaran:
+                    <span class="font-medium">
+                        {{ ucfirst($rental->payment_status) }}
+                    </span>
+                </p>
             </div>
 
             <div class="mt-4 border-t pt-4">
@@ -90,6 +97,37 @@
                 <div class="mt-4 rounded-md bg-gray-50 p-3 text-sm text-gray-600">
                     <strong>Catatan:</strong>
                     {{ $rental->notes }}
+                </div>
+            @endif
+            @if (in_array($rental->status, ['pending', 'approved']) && $rental->payment_status !== 'paid')
+                <div class="mt-4 border-t pt-4">
+                    <h4 class="font-medium text-gray-900">
+                        Upload Bukti Pembayaran
+                    </h4>
+
+                    <form
+                        wire:submit="uploadPaymentProof({{ $rental->id }})"
+                        class="mt-3 space-y-3"
+                    >
+                        <input
+                            type="file"
+                            wire:model="paymentProof"
+                            accept=".jpg,.jpeg,.png,.pdf"
+                            class="block w-full rounded-md border-gray-300 text-sm"
+                        >
+
+                        @error('paymentProof')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+
+                        <button
+                            type="submit"
+                            style="display: inline-block !important; background-color: #4f46e5 !important; color: #ffffff !important;"
+                            class="rounded-md px-4 py-2 text-sm font-semibold"
+                        >
+                            Upload Bukti
+                        </button>
+                    </form>
                 </div>
             @endif
         </div>

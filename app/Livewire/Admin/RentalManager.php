@@ -78,6 +78,53 @@ class RentalManager extends Component
         );
     }
 
+    public function confirmPayment(int $id): void
+    {
+        $rental = Rental::findOrFail($id);
+
+        if ($rental->payment_status !== 'submitted') {
+            session()->flash(
+                'error',
+                'Belum ada bukti pembayaran yang perlu dikonfirmasi.'
+            );
+
+            return;
+        }
+
+        $rental->update([
+            'payment_status' => 'paid',
+            'paid_at' => now(),
+        ]);
+
+        session()->flash(
+            'success',
+            'Pembayaran berhasil dikonfirmasi.'
+        );
+    }
+
+    public function rejectPayment(int $id): void
+    {
+        $rental = Rental::findOrFail($id);
+
+        if ($rental->payment_status !== 'submitted') {
+            session()->flash(
+                'error',
+                'Belum ada bukti pembayaran yang perlu ditolak.'
+            );
+
+            return;
+        }
+
+        $rental->update([
+            'payment_status' => 'rejected',
+        ]);
+
+        session()->flash(
+            'success',
+            'Bukti pembayaran ditolak.'
+        );
+    }
+
     public function render()
     {
         return view('livewire.admin.rental-manager', [
