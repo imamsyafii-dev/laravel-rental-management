@@ -1,4 +1,16 @@
 <div class="space-y-6">
+    @if (session()->has('success'))
+        <div class="rounded-md bg-green-50 p-4 text-sm text-green-700">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="rounded-md bg-red-50 p-4 text-sm text-red-700">
+            {{ session('error') }}
+        </div>
+    @endif
+
     @forelse ($rentals as $rental)
         <div class="rounded-lg bg-white p-6 shadow">
             <div class="flex flex-col justify-between gap-4 md:flex-row md:items-start">
@@ -59,6 +71,20 @@
                     Rp {{ number_format($rental->subtotal, 0, ',', '.') }}
                 </span>
             </div>
+
+            @if ($rental->status === 'pending')
+                <div class="mt-4 border-t pt-4">
+                    <button
+                        type="button"
+                        wire:click="cancel({{ $rental->id }})"
+                        wire:confirm="Batalkan pengajuan rental ini?"
+                        style="display: inline-block !important; background-color: #dc2626 !important; color: #ffffff !important;"
+                        class="rounded-md px-4 py-2 text-sm font-semibold"
+                    >
+                        Batalkan Rental
+                    </button>
+                </div>
+            @endif
 
             @if ($rental->notes)
                 <div class="mt-4 rounded-md bg-gray-50 p-3 text-sm text-gray-600">

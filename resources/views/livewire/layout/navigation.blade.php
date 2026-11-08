@@ -33,6 +33,30 @@ new class extends Component
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if (auth()->user()->role === 'admin')
+                        <x-nav-link :href="route('admin.categories')" :active="request()->routeIs('admin.categories')" wire:navigate>
+                            {{ __('Kategori') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('admin.items')" :active="request()->routeIs('admin.items')" wire:navigate>
+                            {{ __('Barang') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('admin.rentals')" :active="request()->routeIs('admin.rentals')" wire:navigate>
+                            {{ __('Kelola Rental') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if (auth()->user()->role !== 'admin')
+                        <x-nav-link :href="route('rentals.index')" :active="request()->routeIs('rentals.index')" wire:navigate>
+                            {{ __('Rental Saya') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('rentals.create')" :active="request()->routeIs('rentals.create')" wire:navigate>
+                            {{ __('Ajukan Rental') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -84,6 +108,30 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @if (auth()->user()->role === 'admin')
+                <x-responsive-nav-link :href="route('admin.categories')" :active="request()->routeIs('admin.categories')" wire:navigate>
+                    {{ __('Kategori') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.items')" :active="request()->routeIs('admin.items')" wire:navigate>
+                    {{ __('Barang') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.rentals')" :active="request()->routeIs('admin.rentals')" wire:navigate>
+                    {{ __('Kelola Rental') }}
+                </x-responsive-nav-link>
+            @endif
+
+            @if (auth()->user()->role !== 'admin')
+                <x-responsive-nav-link :href="route('rentals.index')" :active="request()->routeIs('rentals.index')" wire:navigate>
+                    {{ __('Rental Saya') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('rentals.create')" :active="request()->routeIs('rentals.create')" wire:navigate>
+                    {{ __('Ajukan Rental') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

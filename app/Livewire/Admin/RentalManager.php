@@ -23,7 +23,7 @@ class RentalManager extends Component
 
             if ($rental->status !== 'pending') {
                 throw new RuntimeException(
-                    'Rental ini sudah diproses sebelumnya.'
+                    'Rental ini sudah dibatalkan atau diproses sebelumnya.'
                 );
             }
 

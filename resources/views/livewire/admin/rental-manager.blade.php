@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<div wire:poll.10s class="space-y-6">
     @if (session()->has('success'))
         <div class="rounded-md bg-green-50 p-4 text-sm text-green-700">
             {{ session('success') }}

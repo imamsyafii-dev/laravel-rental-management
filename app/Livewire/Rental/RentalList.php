@@ -20,4 +20,30 @@ class RentalList extends Component
                 ->paginate(10),
         ]);
     }
+
+    public function cancel(int $id): void
+    {
+        $rental = Auth::user()
+            ->rentals()
+            ->whereKey($id)
+            ->firstOrFail();
+
+        if ($rental->status !== 'pending') {
+            session()->flash(
+                'error',
+                'Hanya rental pending yang dapat dibatalkan.'
+            );
+
+            return;
+        }
+
+        $rental->update([
+            'status' => 'cancelled',
+        ]);
+
+        session()->flash(
+            'success',
+            'Pengajuan rental berhasil dibatalkan.'
+        );
+    }
 }
