@@ -12,4 +12,12 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::view('/admin/categories', 'admin.categories')
+    ->middleware('auth')
+    ->name('admin.categories');
+
+Route::view('/admin/items', 'admin.items')
+    ->middleware('auth')
+    ->name('admin.items');
+
 require __DIR__.'/auth.php';
