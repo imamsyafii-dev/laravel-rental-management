@@ -24,4 +24,12 @@ Route::view('/rentals/create', 'rentals.create')
     ->middleware('auth')
     ->name('rentals.create');
 
+Route::view('/rentals', 'rentals.index')
+    ->middleware('auth')
+    ->name('rentals.index');
+
+Route::view('/admin/rentals', 'admin.rentals')
+    ->middleware('auth')
+    ->name('admin.rentals');
+
 require __DIR__.'/auth.php';
