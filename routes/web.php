@@ -12,14 +12,6 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::view('/admin/categories', 'admin.categories')
-    ->middleware('auth')
-    ->name('admin.categories');
-
-Route::view('/admin/items', 'admin.items')
-    ->middleware('auth')
-    ->name('admin.items');
-
 Route::view('/rentals/create', 'rentals.create')
     ->middleware('auth')
     ->name('rentals.create');
@@ -28,8 +20,16 @@ Route::view('/rentals', 'rentals.index')
     ->middleware('auth')
     ->name('rentals.index');
 
+Route::view('/admin/categories', 'admin.categories')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.categories');
+
+Route::view('/admin/items', 'admin.items')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.items');
+
 Route::view('/admin/rentals', 'admin.rentals')
-    ->middleware('auth')
+    ->middleware(['auth', 'admin'])
     ->name('admin.rentals');
 
 require __DIR__.'/auth.php';
