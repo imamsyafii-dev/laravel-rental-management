@@ -20,4 +20,8 @@ Route::view('/admin/items', 'admin.items')
     ->middleware('auth')
     ->name('admin.items');
 
+Route::view('/rentals/create', 'rentals.create')
+    ->middleware('auth')
+    ->name('rentals.create');
+
 require __DIR__.'/auth.php';
