@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Rental;
+use App\Notifications\RentalStatusUpdated;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -42,6 +43,8 @@ class RentalManager extends Component
                 'status' => 'approved',
                 'approved_at' => now(),
             ]);
+
+            $rental->user->notify(new RentalStatusUpdated($rental));
         });
 
         session()->flash(
@@ -66,6 +69,8 @@ class RentalManager extends Component
         $rental->update([
             'status' => 'rejected',
         ]);
+        
+        $rental->user->notify(new RentalStatusUpdated($rental));
 
         session()->flash(
             'success',
