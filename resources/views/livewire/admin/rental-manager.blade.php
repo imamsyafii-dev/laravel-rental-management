@@ -68,7 +68,7 @@
                             type="button"
                             wire:click="approve({{ $rental->id }})"
                             wire:confirm="Setujui rental ini?"
-                            style="display: inline-block !important; visibility: visible !important; opacity: 1 !important; background-color: #16a34a !important; color: #ffffff !important;"
+                            style="display: inline-block !important; background-color: #16a34a !important; color: #ffffff !important;"
                             class="rounded-md px-4 py-2 text-sm font-semibold"
                         >
                             Setujui
@@ -78,11 +78,22 @@
                             type="button"
                             wire:click="reject({{ $rental->id }})"
                             wire:confirm="Tolak rental ini?"
-                            class="rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500"
+                            style="display: inline-block !important; background-color: #dc2626 !important; color: #ffffff !important;"
+                            class="rounded-md px-4 py-2 text-sm font-semibold"
                         >
                             Tolak
                         </button>
                     </div>
+                @elseif ($rental->status === 'approved')
+                    <button
+                        type="button"
+                        wire:click="complete({{ $rental->id }})"
+                        wire:confirm="Tandai barang sudah dikembalikan?"
+                        style="display: inline-block !important; background-color: #2563eb !important; color: #ffffff !important;"
+                        class="rounded-md px-4 py-2 text-sm font-semibold"
+                    >
+                        Tandai Selesai
+                    </button>
                 @endif
             </div>
         </div>

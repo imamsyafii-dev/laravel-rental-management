@@ -82,4 +82,37 @@ class RentalManager extends Component
                 ->paginate(10),
         ]);
     }
+
+    public function complete(int $id): void
+    {
+        DB::transaction(function () use ($id) {
+            $rental = Rental::query()
+                ->with('rentalItems.item')
+                ->lockForUpdate()
+                ->findOrFail($id);
+
+            if ($rental->status !== 'approved') {
+                throw new RuntimeException(
+                    'Hanya rental yang disetujui yang dapat diselesaikan.'
+                );
+            }
+
+            foreach ($rental->rentalItems as $rentalItem) {
+                $rentalItem->item->increment(
+                    'stock',
+                    $rentalItem->quantity
+                );
+            }
+
+            $rental->update([
+                'status' => 'completed',
+                'returned_at' => now(),
+            ]);
+        });
+
+        session()->flash(
+            'success',
+            'Rental selesai dan stok barang telah dikembalikan.'
+        );
+    }
 }

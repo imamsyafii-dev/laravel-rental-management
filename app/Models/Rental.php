@@ -21,6 +21,7 @@ class Rental extends Model
         'deposit',
         'notes',
         'approved_at',
+        'returned_at',
     ];
 
     protected function casts(): array
@@ -31,6 +32,7 @@ class Rental extends Model
             'subtotal' => 'decimal:2',
             'deposit' => 'decimal:2',
             'approved_at' => 'datetime',
+            'returned_at' => 'datetime',
         ];
     }
 
