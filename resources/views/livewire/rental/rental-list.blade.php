@@ -36,16 +36,26 @@
                     ];
                 @endphp
 
-                <span class="{{ $statusClasses[$rental->status] ?? 'bg-gray-100 text-gray-800' }} rounded-full px-3 py-1 text-sm font-medium">
+                <span class="{{ $statusClasses[$rental->status] ?? 'bg-gray-100 text-gray-800' }} inline-flex rounded-full px-3 py-1 text-sm font-medium">
                     {{ ucfirst($rental->status) }}
                 </span>
 
-                <p class="mt-2 text-sm text-gray-600">
-                    Status pembayaran:
-                    <span class="font-medium">
+                @php
+                    $paymentStatusClasses = [
+                        'unpaid' => 'bg-gray-100 text-gray-800',
+                        'submitted' => 'bg-yellow-100 text-yellow-800',
+                        'paid' => 'bg-green-100 text-green-800',
+                        'rejected' => 'bg-red-100 text-red-800',
+                    ];
+                @endphp
+
+                <div class="mt-3 flex items-center gap-2 text-sm text-gray-600">
+                    <span>Status pembayaran:</span>
+
+                    <span class="{{ $paymentStatusClasses[$rental->payment_status] ?? 'bg-gray-100 text-gray-800' }} inline-flex rounded-full px-3 py-1 font-medium">
                         {{ ucfirst($rental->payment_status) }}
                     </span>
-                </p>
+                </div>
             </div>
 
             <div class="mt-4 border-t pt-4">
