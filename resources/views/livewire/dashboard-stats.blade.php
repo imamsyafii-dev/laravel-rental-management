@@ -1,3 +1,4 @@
+@if ($isAdmin)
 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
     <div class="rounded-lg bg-white p-6 shadow">
         <p class="text-sm text-gray-500">Kategori</p>
@@ -48,3 +49,34 @@
         </p>
     </div>
 </div>
+@else
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="rounded-lg bg-white p-6 shadow">
+        <p class="text-sm text-gray-500">Rental Pending</p>
+        <p class="mt-2 text-3xl font-bold text-yellow-600">
+            {{ $myPendingRentals }}
+        </p>
+    </div>
+
+    <div class="rounded-lg bg-white p-6 shadow">
+        <p class="text-sm text-gray-500">Rental Disetujui</p>
+        <p class="mt-2 text-3xl font-bold text-green-600">
+            {{ $myApprovedRentals }}
+        </p>
+    </div>
+
+    <div class="rounded-lg bg-white p-6 shadow">
+        <p class="text-sm text-gray-500">Rental Selesai</p>
+        <p class="mt-2 text-3xl font-bold text-blue-600">
+            {{ $myCompletedRentals }}
+        </p>
+    </div>
+
+    <div class="rounded-lg bg-white p-6 shadow">
+        <p class="text-sm text-gray-500">Total Pengeluaran</p>
+        <p class="mt-2 text-3xl font-bold text-indigo-600">
+            Rp {{ number_format($myTotalSpent, 0, ',', '.') }}
+        </p>
+    </div>
+</div>
+@endif
