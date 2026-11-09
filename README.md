@@ -1,6 +1,6 @@
 # Laravel Rental Management
 
-Aplikasi manajemen penyewaan barang berbasis Laravel.
+Aplikasi manajemen penyewaan barang berbasis Laravel, Livewire, Docker, MySQL, dan Redis.
 
 ## Teknologi
 
@@ -11,15 +11,19 @@ Aplikasi manajemen penyewaan barang berbasis Laravel.
 - Tailwind CSS
 - MySQL
 - Redis
-- Laravel Sail
 - Docker
+- Laravel Sail
 - Mailpit
 - Pest
 
 ## Menjalankan Project
 
-Clone repository:
-
 ```bash
-git clone ssh://git@github.com/imamsyafii-dev/laravel-rental-management.git
-cd laravel-rental-management
+cp .env.example .env
+./vendor/bin/sail up -d
+./vendor/bin/sail composer install
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan storage:link
